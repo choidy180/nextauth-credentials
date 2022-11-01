@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import * as React from "react";
+import { signOut, useSession } from "next-auth/react";
 
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 const Navbar = () => {
-  const [menuToggle, setMenuToggle] = useState(false);
-
+  const [menuToggle, setMenuToggle] = React.useState(false);
+  const { data: session, status } = useSession();
   return (
     //   navbar goes here
     <nav className="bg-gray-100">
