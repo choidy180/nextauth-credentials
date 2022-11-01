@@ -55,7 +55,7 @@ const Signup: React.FC = (props) => {
       router.replace("/api/auth/signin");
     } catch (error) {
       console.log(error);
-      setFormStatus(`Error Occured: ${error.message}`);
+      setFormStatus(`Error Occured: ${error}`);
     }
   } // end of submitHandler function
 

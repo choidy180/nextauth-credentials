@@ -3,7 +3,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const Login: React.FC = (props) => {
-  const [formStatus, setFormStatus] = useState<string>(null);
+  const [formStatus, setFormStatus] = useState<string | null>(null);
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -14,7 +14,7 @@ const Login: React.FC = (props) => {
     const enteredEmail = emailInputRef.current?.value;
     const enteredPassword = passwordInputRef.current?.value;
 
-    const result = await signIn("credentials", {
+    const result:any = await signIn("credentials", {
       redirect: false,
       email: enteredEmail,
       password: enteredPassword,
