@@ -5,6 +5,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 const Navbar = () => {
   const [menuToggle, setMenuToggle] = React.useState(false);
   const { data: session, status } = useSession();
+  if(status === 'authenticated') console.log('session', session);
   return (
     //   navbar goes here
     <nav className="bg-gray-100">
@@ -46,20 +47,24 @@ const Navbar = () => {
               </a>
             </div>
           </div>
-
           {/* secondary nav */}
-          <div className="hidden md:flex items-center space-x-1">
-            <a href="#" className="py-5 px-3">
-              Login
-            </a>
-            <a
-              href="#"
-              className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
-            >
-              Signup
-            </a>
-          </div>
-
+          {status === "authenticated" ? (
+            <div className="hidden md:flex items-center space-x-1">
+              <button className="py-5 px-3" onClick={() => signOut()}>Log out</button>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-1">
+              <a href="/api/auth/signin" className="py-5 px-3">
+                Login
+              </a>
+              <a
+                href="#"
+                className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+              >
+                Signup
+              </a>
+            </div>
+          )}
           {/* mobile menu */}
           <div className="md:hidden flex items-center">
             <button onClick={() => setMenuToggle(!menuToggle)}>
@@ -85,12 +90,21 @@ const Navbar = () => {
           Pricing
         </a>
 
-        <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-          Login
-        </a>
-        <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-          Signup
-        </a>
+        {status === "authenticated" ? (
+          <button className="block py-2 px-4 text-sm hover:bg-gray-200" onClick={() => signOut()}>Log out</button>
+        ) : (
+          <div>
+            <a
+              href="/api/auth/signin"
+              className="block py-2 px-4 text-sm hover:bg-gray-200"
+            >
+              Login
+            </a>
+            <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
+              Signup
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );
