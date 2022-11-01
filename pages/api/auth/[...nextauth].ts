@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from '@prisma/client';
+import { verifyPassword } from "../../../lib/auth";
 
+let prisma = new PrismaClient();
 
 export default NextAuth({
     providers: [
@@ -12,19 +15,31 @@ export default NextAuth({
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-                username: { label: "유저 이메일", type: "email", placeholder: "user@email.com" },
+                email: { label: "유저 이메일", type: "email", placeholder: "user@email.com" },
                 password: { label: "패스워드", type: "password" }
             },
-            async authorize(credentials, req) {
-                // Add logic here to look up the user from the credentials supplied
-                if(
-                    credentials?.username === 'testuser@email.com' &&
-                    credentials?.password === 'test'
-                ) {
-                    const user = {id: '1', name: 'test user', email: 'test@email.com'}
-                    return user;
+            async authorize(credentials) {
+                const user = await prisma.user.findUnique({
+                    where: {
+                        email: String(credentials.email),
+                    },
+                    select: {
+                        name: true, email: true, password: true
+                    },
+                });
+                if (!user) {
+                    throw new Error('No user found!');
                 }
-                return null
+
+                const isValid = await verifyPassword(
+                    credentials.password,
+                    user.password
+                );
+
+                if (!isValid) {
+                    throw new Error('Could not log you in!');
+                }
+                return { name: user.name, email: user.email };
             }
         })
     ],

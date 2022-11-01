@@ -50,11 +50,12 @@ const Navbar = () => {
           {/* secondary nav */}
           {status === "authenticated" ? (
             <div className="hidden md:flex items-center space-x-1">
+              ({session && session.user.email})
               <button className="py-5 px-3" onClick={() => signOut()}>Log out</button>
             </div>
           ) : (
             <div className="hidden md:flex items-center space-x-1">
-              <a href="/api/auth/signin" className="py-5 px-3">
+              <a href="/login" className="py-5 px-3">
                 Login
               </a>
               <a
@@ -95,7 +96,7 @@ const Navbar = () => {
         ) : (
           <div>
             <a
-              href="/api/auth/signin"
+              href="/login"
               className="block py-2 px-4 text-sm hover:bg-gray-200"
             >
               Login
