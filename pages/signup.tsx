@@ -1,19 +1,62 @@
-import * as React from "react";
+import React, { useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-const Signup: React.FC = (props) => {
-  const [formStatus, setFormStatus] = React.useState<string | null>(null);
+async function createUser(
+  name: string,
+  email: string,
+  password: string
+): Promise<any> {
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify({ name, email, password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-  const nameInputRef = React.useRef<HTMLInputElement>(null);
-  const emailInputRef = React.useRef<HTMLInputElement>(null);
-  const passwordInputRef = React.useRef<HTMLInputElement>(null);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong!");
+  }
+
+  return data;
+}
+
+const Signup: React.FC = (props) => {
+  const [formStatus, setFormStatus] = useState<string | null>(null);
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const { status } = useSession();
   const router = useRouter();
 
   async function submitHandler(event: React.SyntheticEvent) {
     event.preventDefault();
+
+    const enteredName = nameInputRef.current?.value;
+    const enteredEmail = emailInputRef.current?.value;
+    const enteredPassword = passwordInputRef.current?.value;
+
+    // optional: Add validation
+
+    try {
+      const result = await createUser(
+        enteredName,
+        enteredEmail,
+        enteredPassword
+      );
+      console.log(result);
+      setFormStatus(`Sign up Success: ${result.message}`);
+      // window.location.href = "/";
+      router.replace("/api/auth/signin");
+    } catch (error) {
+      console.log(error);
+      setFormStatus(`Error Occured: ${error.message}`);
+    }
   } // end of submitHandler function
 
   if (status === "authenticated") {
