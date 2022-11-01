@@ -58,7 +58,7 @@ const Navbar = () => {
                 Login
               </a>
               <a
-                href="#"
+                href="/signup"
                 className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
               >
                 Signup
@@ -100,7 +100,7 @@ const Navbar = () => {
             >
               Login
             </a>
-            <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
+            <a href="/signup" className="block py-2 px-4 text-sm hover:bg-gray-200">
               Signup
             </a>
           </div>
