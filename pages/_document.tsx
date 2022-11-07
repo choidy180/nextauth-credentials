@@ -9,8 +9,14 @@ import { ServerStyleSheet } from "styled-components";
   
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
-        const cookieString = ctx.req ? ctx.req.headers.cookie : '';
-        console.log(cookieString);
+        // ctx.res.setHeader(
+        //     'Set-Cookie',
+        //     `id = storichain-id; Expires=Wed; Secure; HttpOnly; SameSite=Strict`
+        // );
+        // ctx.res.setHeader(
+        //     'Set-Cookie',
+        //     `pwd = storichain-pwd; Expires=Wed; Secure; HttpOnly; SameSite=Strict`
+        // );
         const sheet = new ServerStyleSheet();
         const originalRenderPage = ctx.renderPage;
         try {

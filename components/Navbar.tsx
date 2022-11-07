@@ -5,7 +5,6 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 const Navbar = () => {
   const [menuToggle, setMenuToggle] = React.useState(false);
   const { data: session, status } = useSession();
-  if(status === 'authenticated') console.log('session', session);
   return (
     //   navbar goes here
     <nav className="bg-gray-100">

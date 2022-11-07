@@ -22,13 +22,4 @@ const Home: NextPage = () => {
     );
 };
 
-export const getServerSideProps = ({req, res}:any) => {
-    setCookie('test', 'value', { req, res, maxAge: 60 * 6 * 24 });
-    getCookie('test', { req, res });
-    getCookies({ req, res });
-    deleteCookie('test', { req, res });
-
-    return { props: {} };
-}
-
 export default Home;
