@@ -2,23 +2,21 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import { SessionProvider } from 'next-auth/react'
+import { QueryClient, QueryClientProvider, useMutation } from 'react-query'
+import {} from 'react-query'
+import * as React from 'react'
 
 const App = ({ Component, pageProps }: AppProps) => {
+    const [queryClient] = React.useState(()=> new QueryClient())
     return (
         <SessionProvider>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <QueryClientProvider client={queryClient}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </QueryClientProvider>
         </SessionProvider>
     )
-}
-
-// 앱 실행시 데이터 받아오는부분
-App.getInitialProps = async () => {
-    const res = await fetch('https://dev-nft.storicha.in/api/cashseries?series_idx=5737');
-    const json = await res.json()
-    console.log(json);
-    return { star: json.stargazers_count }
 }
 
 export default App;
