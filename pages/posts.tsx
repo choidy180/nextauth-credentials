@@ -3,8 +3,10 @@ import axios from 'axios'
 
 function Posts(){
     const [data, setData] = React.useState(null);
+    const [user, setUser] = React.useState(null);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
+    const [cash, setCash] = React.useState(null);
 
     const fetchDatas = async () => {
         try {
@@ -17,6 +19,14 @@ function Posts(){
                 'https://dev-nft.storicha.in/api/cashseries?series_idx=5737'
             );
             setData(response.data); // 데이터는 response.data 안에 들어가있음
+            const request = await axios.post(
+                'https://dev-nft.storicha.in/api/User/SiteSnsLogin?site_user_id=testkwy@test.com&pwd=1234QWER!'
+            )
+            setUser(request);
+            const getData = await axios.get(
+                'https://dev-nft.storicha.in/api/cash/product?display_yn=Y?product_id=0'
+            )
+            setCash(getData);
         } catch (e) {
             setError(e);
         }
@@ -37,7 +47,11 @@ function Posts(){
             {loading ? (
                 <h1>로딩 중...</h1>
             ) : (
-                <h1 onClick={()=>console.log(data)}>데이터 로딩 완료</h1>
+                <>
+                    <h1 onClick={()=> console.log(data)}>데이터 로딩 완료</h1>
+                    <h1 onClick={()=> console.log(user)}>유저정보</h1>
+                    <h1 onClick={()=> console.log(cash)}>캐쉬정보</h1>
+                </>
             )}
         </>
     )
