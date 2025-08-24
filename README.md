@@ -5,7 +5,7 @@
 
 <h1 align="center">✅ NEXTAUTH</h1>
 <p align="center">
-  <b>Next.js와 Prisma DB를 이용한 로그인(세션+쿠키) 관리 프로젝트/b>
+  <b>Next.js와 Prisma DB를 이용한 로그인(세션+쿠키) 관리 프로젝트</b>
 </p>
 
 <!-- BADGES -->
