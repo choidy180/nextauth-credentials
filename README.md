@@ -1,11 +1,11 @@
 <!-- BANNER -->
 <p align="center">
-  <img src="./public/douauth.jpg" alt="douauth Banner" width="200px" />
+  <img src="./public/auth.jpg" alt="douauth Banner" width="200px" />
 </p>
 
-<h1 align="center">✅ DouAuth</h1>
+<h1 align="center">✅ NEXTAUTH</h1>
 <p align="center">
-  <b>Next.js와 Prisma DB를 이용한 카카오, 네이버 SNS로그인 구현 프로젝트</b>
+  <b>Next.js와 Prisma DB를 이용한 로그인(세션+쿠키) 관리 프로젝트/b>
 </p>
 
 <!-- BADGES -->
@@ -21,7 +21,7 @@
 ---
 
 ## 🌈 주요 기능
-- 📝 **카카오 & 네이버 로그인** 실시간으로 Prisma 웹 DB에 저장  
+- 📝 **로그인 관리** 세션 + 쿠키 활용 및 실시간으로 Prisma 웹 DB에 저장  
 
 ---
 
@@ -39,8 +39,8 @@
 ## 📦 설치 및 실행
 ```bash
 # 1) 레포지토리 복제
-git clone https://github.com/choidy180/kakao-naver-next-auth
-cd kakao-naver-next-auth
+git clone https://github.com/choidy180/nextauth-credentials
+cd nextauth-credentials
 
 # 2) 의존성 설치
 npm install
